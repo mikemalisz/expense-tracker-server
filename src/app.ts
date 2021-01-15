@@ -12,6 +12,10 @@ app.get('/', (request, response) => {
    response.send("hello world!")
 })
 
+app.use((error: Error, request: express.Request, response: express.Response, next: express.NextFunction) => {
+   response.status(500).json({ errorMessage: error.message })
+})
+
 app.listen(config.PORT, () => {
    console.log(`Server started on localhost:${config.PORT}`)
 })
