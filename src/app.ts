@@ -1,8 +1,12 @@
 import express from 'express'
 import config from './config/config'
+import { sessionHandler } from "./config/session"
 
 const app = express()
+
+// Middleware setup
 app.use(express.json())
+app.use(sessionHandler)
 
 app.get('/', (request, response) => {
    response.send("hello world!")
