@@ -24,5 +24,6 @@ coverage
 # Benchmarking
 benchmarks/graphs
 
-# Project output
+# Project
 dist/
+.env
