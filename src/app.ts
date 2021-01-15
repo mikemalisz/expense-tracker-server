@@ -3,6 +3,7 @@ import config from './config/config'
 import { sessionHandler } from "./config/session"
 
 const app = express()
+app.disable('x-powered-by')
 
 // Middleware setup
 app.use(express.json())
