@@ -16,17 +16,6 @@ app.get('/', async (request, response) => {
    response.send({ response: 'object' })
 })
 
-app.post('/', async (request, response) => {
-   if (request.body.identityToken) {
-      const service = new TokenService()
-      await service.verifyToken(request.body.identityToken)
-   } else {
-      console.log("no identity token")
-   }
-
-   response.json({})
-})
-
 app.use((error: Error, request: express.Request, response: express.Response, next: express.NextFunction) => {
    response.status(500).json({ errorMessage: error.message })
 })
