@@ -13,9 +13,18 @@ app.use(sessionHandler)
 app.use("/auth", authenticationRouter)
 
 app.get('/', async (request, response) => {
-   const service = new TokenService()
-   await service.requestCertificates()
    response.send({ response: 'object' })
+})
+
+app.post('/', async (request, response) => {
+   if (request.body.identityToken) {
+      const service = new TokenService()
+      await service.verifyToken(request.body.identityToken)
+   } else {
+      console.log("no identity token")
+   }
+
+   response.json({})
 })
 
 app.use((error: Error, request: express.Request, response: express.Response, next: express.NextFunction) => {
