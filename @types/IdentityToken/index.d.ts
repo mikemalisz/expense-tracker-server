@@ -2,5 +2,6 @@ interface IdentityToken {
    iss: string
    aud: string
    exp: number
-   email: string
+   sub: string
+   email?: string
 }
