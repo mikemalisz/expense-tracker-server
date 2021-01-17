@@ -15,7 +15,7 @@ export class TokenService {
       const payload = (result.payload || {}) as Partial<IdentityToken>
 
       // extract identity token values from payload
-      const { iss, aud, exp = 0 } = payload
+      const { iss, aud, exp = 0, email } = payload
 
       /*
       Guidelines for verifying identity token from Apple: https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api/verifying_a_user
@@ -24,8 +24,9 @@ export class TokenService {
       const isIssuerVerified = iss?.includes(TokenService.appleIdUrl)
       const isClientIdVerified = aud === clientId
       const isTokenExpirationTimeValid = (new Date()) <= (new Date(exp * 1000))
+      const containsEmail = (typeof email === 'string')
 
-      if (isIssuerVerified && isClientIdVerified && isTokenExpirationTimeValid) {
+      if (isIssuerVerified && isClientIdVerified && isTokenExpirationTimeValid && containsEmail) {
          return payload as IdentityToken
       } else {
          throw new Error("Provided identity token invalid")
