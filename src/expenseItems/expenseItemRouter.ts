@@ -18,12 +18,13 @@ expenseItemRouter.get('/retrieve', isAuthenticated, async (req, res, next) => {
 })
 
 expenseItemRouter.post('/create', isAuthenticated, validateBodyContainsCreateExpenseItem, async (req, res, next) => {
-   const { expenseItem } = req.body as CreateExpenseItemBody
+   const expenseItem = req.body as CreateExpenseItem
    const userId = req.session.userId!
 
    try {
       await ExpenseItemService.insertExpenseItem(userId, expenseItem)
-      res.end()
+      const expenseItems = await ExpenseItemService.retrieveExpenseItems(userId)
+      res.json({ expenseItems })
    } catch (error) {
       next(error)
    }
@@ -38,7 +39,8 @@ expenseItemRouter.delete('/', isAuthenticated, async (req, res, next) => {
 
    try {
       await ExpenseItemService.deleteExpenseItem(itemId, userId)
-      res.end()
+      const expenseItems = await ExpenseItemService.retrieveExpenseItems(userId)
+      res.json({ expenseItems })
    } catch (error) {
       next(error)
    }

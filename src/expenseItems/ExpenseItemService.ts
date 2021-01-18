@@ -2,7 +2,19 @@ import { databaseQuery } from "../config/database";
 
 export class ExpenseItemService {
    static async retrieveExpenseItems(userId: string): Promise<ExpenseItem[]> {
-      const queryResult = await databaseQuery('SELECT * FROM expense_items WHERE user_id=$1', [userId])
+      const queryText = `
+      SELECT
+         item_id AS "itemId",
+         user_id AS "userId",
+         amount_in_cents AS "amountInCents",
+         expense_title AS "expenseTitle",
+         expense_description AS "expenseDescription",
+         date_of_purchase AS "dateOfPurchase",
+         date_created AS "dateCreated"
+      FROM expense_items
+      WHERE user_id=$1
+      `
+      const queryResult = await databaseQuery(queryText, [userId])
       return queryResult.rows
    }
 
