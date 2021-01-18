@@ -23,20 +23,29 @@ expenseItemRouter.post('/create', isAuthenticated, validateBodyContainsCreateExp
 
    try {
       await ExpenseItemService.insertExpenseItem(userId, expenseItem)
-      const expenseItems = await ExpenseItemService.retrieveExpenseItems(userId)
-      res.json({ expenseItems })
+      res.end()
    } catch (error) {
       next(error)
    }
-   res.end()
 })
 
 expenseItemRouter.delete('/', isAuthenticated, async (req, res, next) => {
-   res.end()
+   const userId = req.session.userId!
+   const itemId = req.body.itemId
+   if (!itemId) {
+      return next(new Error("Missing information"))
+   }
+
+   try {
+      await ExpenseItemService.deleteExpenseItem(itemId, userId)
+      res.end()
+   } catch (error) {
+      next(error)
+   }
 })
 
 expenseItemRouter.put('/', isAuthenticated, (req, res, next) => {
-   res.end()
+   next(new Error("Not implemented yet"))
 })
 
 export { expenseItemRouter }

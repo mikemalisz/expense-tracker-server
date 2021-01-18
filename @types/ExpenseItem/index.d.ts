@@ -1,6 +1,6 @@
 interface ExpenseItem {
    userId: string
-   identifier: string
+   itemId: string
    amountInCents: number
    expenseTitle: string
    expenseDescription?: string
