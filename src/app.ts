@@ -3,6 +3,7 @@ import config from './config/config'
 import { sessionHandler } from "./config/session"
 import { authenticationRouter } from "./authentication/authenticationRouter"
 import { TokenService } from './authentication/TokenService'
+import { expenseItemRouter } from './expenseItems/expenseItemRouter'
 
 const app = express()
 app.disable('x-powered-by')
@@ -10,11 +11,8 @@ app.disable('x-powered-by')
 // Middleware setup
 app.use(express.json())
 app.use(sessionHandler)
-app.use("/auth", authenticationRouter)
-
-app.get('/', async (request, response) => {
-   response.send({ response: 'object' })
-})
+app.use('/auth', authenticationRouter)
+app.use('/expense-items', expenseItemRouter)
 
 app.use((error: Error, request: express.Request, response: express.Response, next: express.NextFunction) => {
    response.status(500).json({ errorMessage: error.message })
