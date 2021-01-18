@@ -2,6 +2,11 @@ import { databaseQuery } from "../config/database";
 
 export class ExpenseItemService {
    static async retrieveExpenseItems(userId: string): Promise<ExpenseItem[]> {
+      /*
+      NOTE: parameterized ORDER BY queries are not supported by Postgres
+      https://github.com/brianc/node-postgres/issues/300
+      Possible workarounds with CASE: https://stackoverflow.com/questions/8139618/postgresql-parameterized-order-by-limit-in-table-function
+      */
       const queryText = `
       SELECT
          item_id AS "itemId",
@@ -13,8 +18,10 @@ export class ExpenseItemService {
          date_created AS "dateCreated"
       FROM expense_items
       WHERE user_id=$1
+      ORDER BY date_of_purchase DESC
       `
       const queryResult = await databaseQuery(queryText, [userId])
+      console.log(queryResult.rows)
       return queryResult.rows
    }
 
