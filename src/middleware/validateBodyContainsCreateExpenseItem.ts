@@ -9,9 +9,6 @@ export function validateBodyContainsCreateExpenseItem(req: express.Request, res:
    const isDescriptionSet = typeof expenseDescription === 'string'
 
    if (isAmountSet && isDateSet && isTitleSet && isDescriptionSet) {
-      // convert date of purchase from seconds to milliseconds
-      const sanitizedDateOfPurchase = Math.round(dateOfPurchase! * 1000)
-      req.body.dateOfPurchase = sanitizedDateOfPurchase
       next()
    } else {
       const missingInformationError = new Error("Missing information")
