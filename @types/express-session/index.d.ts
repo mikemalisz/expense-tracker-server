@@ -1,4 +1,4 @@
-import { UserAccount } from "../../src/authentication/UserAccount"
+import { UserAccount } from "../../server/authentication/UserAccount"
 
 declare module 'express-session' {
    interface SessionData {
