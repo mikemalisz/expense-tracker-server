@@ -19,7 +19,7 @@ class DatabaseConfigurator {
 
 		try {
 			await createDatabaseClient.query(
-				`CREATE DATABASE ${process.env.DBNAME}`
+				`CREATE DATABASE ${process.env.DATABASE_NAME}`
 			)
 			console.log('create database')
 		} catch (error) {
@@ -29,7 +29,9 @@ class DatabaseConfigurator {
 	}
 
 	static async configureExtensions() {
-		const extensionsClient = new Client({ database: process.env.DBNAME })
+		const extensionsClient = new Client({
+			database: process.env.DATABASE_NAME,
+		})
 		await extensionsClient.connect()
 
 		try {
@@ -44,7 +46,7 @@ class DatabaseConfigurator {
 	}
 
 	static async createAccountsTable() {
-		const accountsClient = new Client({ database: process.env.DBNAME })
+		const accountsClient = new Client({ database: process.env.DATABASE_NAME })
 		await accountsClient.connect()
 
 		try {
@@ -64,7 +66,9 @@ class DatabaseConfigurator {
 	}
 
 	static async createExpenseItemsTable() {
-		const expenseItemsClient = new Client({ database: process.env.DBNAME })
+		const expenseItemsClient = new Client({
+			database: process.env.DATABASE_NAME,
+		})
 		await expenseItemsClient.connect()
 
 		try {
@@ -88,7 +92,7 @@ class DatabaseConfigurator {
 
 	/* This query was obtained from connect-pg-simple NPM package */
 	static async createSessionTable() {
-		const sessionClient = new Client({ database: process.env.DBNAME })
+		const sessionClient = new Client({ database: process.env.DATABASE_NAME })
 		await sessionClient.connect()
 
 		try {

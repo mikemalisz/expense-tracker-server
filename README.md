@@ -10,9 +10,11 @@ PORT=
 
 # Database config
 DATABASE_NAME=
-DATABASE_HOST=
-DATABASE_PORT=
 SESSION_SECRET=
+
+## PG prefixed environment variables are used by node-postgres during initialization
+PGHOST=
+PGPORT=
 ```
 
 Tip for generating a random session secret if Node.js is installed:
