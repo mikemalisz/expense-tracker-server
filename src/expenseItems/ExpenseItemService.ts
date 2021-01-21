@@ -21,7 +21,6 @@ export class ExpenseItemService {
       ORDER BY date_of_purchase DESC
       `
       const queryResult = await databaseQuery(queryText, [userId])
-      console.log(queryResult.rows)
       return queryResult.rows
    }
 
