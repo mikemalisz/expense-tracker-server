@@ -11,7 +11,10 @@ export const sessionHandler = session({
    }),
    secret: config.SESSION_SECRET,
    resave: false,
-   cookie: { maxAge: 10 * 365 * 24 * 60 * 60 * 1000 }, // 10 years, 10 years * 365 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+   cookie: {
+      secure: config.IS_PRODUCTION_MODE,
+      maxAge: 10 * 365 * 24 * 60 * 60 * 1000
+   }, // 10 years, 10 years * 365 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
    saveUninitialized: true,
    name: config.SESSION_ID
 })

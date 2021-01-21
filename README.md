@@ -6,6 +6,7 @@ This repository contains the source code for the Expense Tracker Server.
 
 ```dosini
 # Server config
+NODE_ENV=development
 PORT=
 
 # Database config

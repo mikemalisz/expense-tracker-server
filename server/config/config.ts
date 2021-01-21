@@ -7,5 +7,6 @@ export default {
    DATABASE_HOST: process.env.DATABASE_HOST,
    DATABASE_PORT: process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT) : undefined,
    SESSION_SECRET: process.env.SESSION_SECRET!,
-   SESSION_ID: "expenseSessionId"
+   SESSION_ID: "expenseSessionId",
+   IS_PRODUCTION_MODE: (process.env.NODE_ENV === 'production')
 }
