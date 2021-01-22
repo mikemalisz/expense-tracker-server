@@ -17,6 +17,7 @@ app.use('/expense-tracker', router)
 
 // catches all errors and sends their message to client
 app.use((error: Error, request: express.Request, response: express.Response, next: express.NextFunction) => {
+   console.error(error)
    response.status(500).json({ errorMessage: error.message })
 })
 
