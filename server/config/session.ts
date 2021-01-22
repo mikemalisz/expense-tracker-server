@@ -11,6 +11,7 @@ export const sessionHandler = session({
    }),
    secret: config.SESSION_SECRET,
    resave: false,
+   proxy: config.IS_PRODUCTION_MODE,
    cookie: {
       secure: config.IS_PRODUCTION_MODE,
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000
