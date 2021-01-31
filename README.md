@@ -61,6 +61,34 @@ In conclusion, using Sign in with Apple is a relatively simple and secure way to
 
 <h2 id="expense-item-persistence">Expense Item Persistence</h2>
 
+#### Protected Routes
+
+All routes that interact with expense items currently require users to be authenticated. I created a simple middleware that checks the authentication state of requests coming to expense item routes that looks like this:
+
+```TypeScript
+export function isAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
+   if (req.session.userId) {
+      next()
+   } else {
+      next(new Error("Authentication required"))
+   }
+}
+```
+
+This simple middleware just makes sure the session object for the current user contains a `userId` property, an indicator of authentication state. More information on <a href="#user-authentication">user authentication here.</a>
+
+#### CRUD Operations
+
+All expense item operations go through the `ExpenseItemService` class. This class offers basic functionality such as reading, writing, and deleting expense items to and from the database.
+
+Expense items currently have a relatively simple database schema. Apart from the content provided by the user (like title, amount, date purchased, etc), an item id and user id are stored with it. The item id is a unique string that can be used to identify an expense item among all the others. The user id column represents the account who the expense item belongs to. This means users have a one-to-many relationship with expense items, meaning one user can have multiple expense items but each expense item can only have one user id.
+
+Each expense item route retrieves the user's updated list of expense items before returning them back to the client, to help keep synchronization simple between the client and server.
+
+#### Room for Improvement
+
+The current expense item retrieval works great for users that have a low number of expense items in their account, but can become inefficient since all of the user's expense items are retrieved at once. One possible solution that I think would be elegant is pagination. This means the client would only be able to request for a fixed amount of expense items at a time, 50 for example, and would have to supply an offset with each retrieval request to get the rest.
+
 ## Template for Environment Variables
 
 ```dosini
